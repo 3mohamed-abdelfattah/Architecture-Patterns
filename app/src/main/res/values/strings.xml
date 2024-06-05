@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Architecture Patterns</string>
+    <string name="user_name">User Name</string>
+    <string name="show_wisdom">Show Wisdom</string>
+    <string name="_25_5_2002">25-5-2002</string>
+    <string name="content_here">Content Here</string>
 </resources>
