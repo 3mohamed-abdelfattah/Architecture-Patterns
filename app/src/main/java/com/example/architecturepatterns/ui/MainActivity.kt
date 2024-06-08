@@ -3,6 +3,7 @@ package com.example.architecturepatterns.ui
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,12 +14,16 @@ import com.example.architecturepatterns.databinding.ActivityMainBinding
 import com.example.architecturepatterns.model.User
 import com.example.architecturepatterns.model.wisdom
 import com.example.architecturepatterns.presenter.MainPresenter
+import com.example.architecturepatterns.viewModels.MainViewModel
 
 class MainActivity : AppCompatActivity(), IMainView {
     lateinit var binding: ActivityMainBinding
 
     //For MVP
     private val presenter = MainPresenter()
+
+    //For MVVM
+    private val viewModel: MainViewModel by viewModels()
 
 
     //For MVC
@@ -36,6 +41,8 @@ class MainActivity : AppCompatActivity(), IMainView {
         }
         //MVC
 //        fetchUser()
+//        setup()
+        setupMVVM()
     }
 
     fun fetchWisdom(view: View) {
@@ -60,6 +67,27 @@ class MainActivity : AppCompatActivity(), IMainView {
         binding.fetchButton.setOnClickListener {
             presenter.getWisdom()
         }
+    }
+
+
+    //For MVVM Setup
+    private fun setupMVVM() {
+        viewModel.fetchUser()
+        binding.fetchButton.setOnClickListener {
+            viewModel.getWisdom()
+        }
+
+        viewModel.currentUser.observe(this) {
+            binding.userName.text = it.name
+        }
+
+        viewModel.wisdom.observe(this) {
+            binding.apply {
+                date.text = it.publisherDate
+                content.text = it.content
+            }
+        }
+
     }
 
     //MVP To Get User
