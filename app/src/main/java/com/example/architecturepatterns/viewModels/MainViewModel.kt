@@ -15,6 +15,7 @@ class MainViewModel : ViewModel() {
     // MutableLiveData Streaming of data (Don't lose data while rotating screen)
     val currentUser = MutableLiveData<User>()
     val wisdom = MutableLiveData<wisdom>()
+    val name = "Mohamed"
 
     //To Get User Use Repository Pattern
     fun fetchUser() {

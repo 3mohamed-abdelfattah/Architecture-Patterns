@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.databinding.DataBindingUtil
 import com.example.architecturepatterns.FakeApiServes
 import com.example.architecturepatterns.FakeDatabase
 import com.example.architecturepatterns.R
@@ -30,7 +31,9 @@ class MainActivity : AppCompatActivity(), IMainView {
     val api = FakeApiServes()
     val fakeData = FakeDatabase()
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(binding.root)
